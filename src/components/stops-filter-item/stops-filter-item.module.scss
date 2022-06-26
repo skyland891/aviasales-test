@@ -1,0 +1,49 @@
+.item-wrapper {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.item-wrapper:hover {
+    background-color: #F1FCFF;
+    cursor: pointer;
+}
+
+.label {
+    cursor: pointer;
+    padding-left: 50px;
+    color: #4A4A4A;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.checkbox {
+    position: absolute;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.custom-checkbox {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 2px;
+    left: 20px;
+    display: block;
+    border: 1px solid #9ABBCE;
+    border-radius: 2px;
+}
+
+.custom-checkbox:hover {
+    border-color: #2196F3;
+}
+
+.checkbox:checked+.custom-checkbox {
+    border-color: #2196F3;
+    background-image: url('../../assets/img/Shape.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+}
