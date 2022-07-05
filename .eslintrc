@@ -37,6 +37,8 @@
         "no-useless-catch": "off",
         "no-debugger": "off",
         "class-methods-use-this": "off",
-        "no-error-on-unmatched-pattern": "off"
+        "no-error-on-unmatched-pattern": "off",
+        "default-param-last": "off",
+        "import/prefer-default-export": "off"
     }
 }
