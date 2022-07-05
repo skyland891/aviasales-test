@@ -2,10 +2,24 @@ import React from "react";
 import style from "./tickets-filter-item.module.scss";
 import { ITicketsFilterItem } from "../../types/types";
 
-function TicketsFilterItem({ label }: ITicketsFilterItem) {
+function TicketsFilterItem({
+  label,
+  id,
+  clickFilter,
+  isTargeted,
+}: ITicketsFilterItem) {
   return (
-    <div className={style["filter-item"]}>
-      <span className={style.label}>{label}</span>
+    <div
+      className={
+        isTargeted ? style["filter-item-target"] : style["filter-item"]
+      }
+      onClick={() => {
+        clickFilter(id);
+      }}
+    >
+      <span className={isTargeted ? style["label-target"] : style.label}>
+        {label}
+      </span>
     </div>
   );
 }
