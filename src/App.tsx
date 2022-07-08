@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect, ConnectedProps } from "react-redux";
 import style from "./App.module.scss";
 import logo from "./assets/img/Logo.svg";
 import StopsFilter from "./components/stops-filter";
 import TicketsFilter from "./components/tickets-filter";
+import { stateType } from "./types/types";
+import * as fetchTicketsActions from "./store/actions/fetchTicketsActions";
 import Ticket from "./components/ticket";
 
 const stopsFilter = [
@@ -23,71 +26,27 @@ const stopsFilter = [
   },
 ];
 
-const tickets = [
-  {
-    price: 13400,
-    companyId: 1,
-    entry: "MOW",
-    departure: "HKT",
-    variants: [
-      {
-        entryTime: "10:45",
-        departureTime: "08:00",
-        duration: "21ч15м",
-        stops: ["HKG", "JNB"],
-      },
-      {
-        entryTime: "11:20",
-        departureTime: "00:50",
-        duration: "13ч30м",
-        stops: ["HKG"],
-      },
-    ],
-  },
-  {
-    price: 13400,
-    companyId: 1,
-    entry: "MOW",
-    departure: "HKT",
-    variants: [
-      {
-        entryTime: "10:45",
-        departureTime: "08:00",
-        duration: "21ч15м",
-        stops: ["HKG", "JNB"],
-      },
-      {
-        entryTime: "11:20",
-        departureTime: "00:50",
-        duration: "13ч30м",
-        stops: ["HKG"],
-      },
-    ],
-  },
-  {
-    price: 13400,
-    companyId: 1,
-    entry: "MOW",
-    departure: "HKT",
-    variants: [
-      {
-        entryTime: "10:45",
-        departureTime: "08:00",
-        duration: "21ч15м",
-        stops: ["HKG", "JNB"],
-      },
-      {
-        entryTime: "11:20",
-        departureTime: "00:50",
-        duration: "13ч30м",
-        stops: ["HKG"],
-      },
-    ],
-  },
-];
 let maxId = 100;
 
-function App() {
+const mapStateToProps = (state: stateType) => {
+  const { tickets, isLoading, isError } = state.ticketsReducer;
+  return {
+    tickets,
+    isLoading,
+    isError,
+  };
+};
+
+const connector = connect(mapStateToProps, fetchTicketsActions);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function App(propsFromRedux: PropsFromRedux) {
+  const { tickets, fetchTickets } = propsFromRedux;
+  useEffect(() => {
+    fetchTickets();
+  }, []);
+
   return (
     <div>
       <header className={style.header}>
@@ -102,10 +61,8 @@ function App() {
               <li key={maxId++}>
                 <Ticket
                   price={ticket.price}
-                  entry={ticket.entry}
-                  departure={ticket.departure}
-                  companyId={ticket.companyId}
-                  variants={ticket.variants}
+                  carrier={ticket.carrier}
+                  segments={ticket.segments}
                 />
               </li>
             ))}
@@ -116,4 +73,4 @@ function App() {
   );
 }
 
-export default App;
+export default connector(App);
