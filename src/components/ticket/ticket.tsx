@@ -1,49 +1,60 @@
 import React from "react";
-import s7 from "../../assets/img/S7.png";
-import { ITicket, IVariant } from "../../types/types";
+import { ITicket, ISegmentItem } from "../../types/types";
+import {
+  addDurationInMinToDate,
+  dateFormat,
+  durationFormat,
+} from "../../utils/timeFormat";
 import style from "./ticket.module.scss";
 
-interface VariantProps {
-  entry: string;
-  departure: string;
-  variant: IVariant;
+interface SegmentItemProps {
+  item: ISegmentItem;
 }
 
-function Variant({ entry, departure, variant }: VariantProps) {
-  const { entryTime, departureTime, stops, duration } = variant;
+function SegmentItem({ item }: SegmentItemProps) {
+  const { date, destination, duration, stops, origin } = item;
+  const hasStopsLabel = stops.length === 0 ? "Без пересадок" : null;
+  const oneStopLabel = stops.length === 1 ? "1 пересадка" : null;
+  const moreThenOneStopsLabel =
+    stops.length > 1 ? `${stops.length} пересадки` : null;
+
   return (
     <div className={style["variant-wrapper"]}>
       <div>
         <span className={style.title}>
-          {entry} - {departure}
+          {origin} - {destination}
         </span>
         <span className={style.subtitle}>
-          {entryTime} - {departureTime}
+          {dateFormat(date)} - {addDurationInMinToDate(date, duration)}
         </span>
       </div>
       <div>
         <span className={style.title}>В пути</span>
-        <span className={style.subtitle}>{duration}</span>
+        <span className={style.subtitle}>{durationFormat(duration)}</span>
       </div>
       <div>
-        <span className={style.title}>{stops.length} пересадки</span>
+        <span className={style.title}>
+          {hasStopsLabel}
+          {oneStopLabel}
+          {moreThenOneStopsLabel}
+        </span>
         <span className={style.subtitle}>{`${stops}`}</span>
       </div>
     </div>
   );
 }
 
-function Ticket({ price, companyId, entry, departure, variants }: ITicket) {
+function Ticket({ price, segments, carrier }: ITicket) {
   return (
     <div className={style["ticket-wrapper"]}>
       <header className={style["ticket-header"]}>
         <span className={style.price}>{`${price} Р`}</span>
-        <img src={s7} alt={`${companyId}`} />
+        <img src={`//pics.avs.io/99/36/${carrier}.png`} alt={`${carrier}`} />
       </header>
       <ul>
-        {variants.map((variant) => (
-          <li className={style.variant} key={variant.stops.length}>
-            <Variant entry={entry} departure={departure} variant={variant} />
+        {segments.map((segmentItem) => (
+          <li className={style.variant} key={segmentItem.stops.length}>
+            <SegmentItem item={segmentItem} />
           </li>
         ))}
       </ul>

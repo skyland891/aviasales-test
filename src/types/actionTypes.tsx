@@ -1,3 +1,5 @@
+import { ITicket } from "./types";
+
 export interface ActionAddFilter {
   type: "ADD_FILTER";
   payload: number | number[];
@@ -16,3 +18,22 @@ export interface TargetAction {
 }
 
 export type ticketsFilterAction = TargetAction;
+
+export interface FetchSuccessAction {
+  type: "FETCH_SUCCESS";
+  payload: ITicket[];
+}
+
+export interface FetchErrorAction {
+  type: "FETCH_ERROR";
+  payload: any;
+}
+
+export interface FetchingAction {
+  type: "FETCHING";
+}
+
+export type ticketsAction =
+  | FetchSuccessAction
+  | FetchErrorAction
+  | FetchingAction;
