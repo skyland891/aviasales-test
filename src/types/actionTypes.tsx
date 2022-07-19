@@ -21,7 +21,10 @@ export type ticketsFilterAction = TargetAction;
 
 export interface FetchSuccessAction {
   type: "FETCH_SUCCESS";
-  payload: ITicket[];
+  payload: {
+    tickets: ITicket[];
+    stop: boolean;
+  };
 }
 
 export interface FetchErrorAction {
@@ -33,7 +36,35 @@ export interface FetchingAction {
   type: "FETCHING";
 }
 
+export interface FilterByStopsAction {
+  type: "FILTER_BY_STOPS";
+  payload: number[];
+}
+
+export interface SortAction {
+  type: "SORT";
+  payload: number;
+}
+
+export interface GetSearchId {
+  type: "GET_SEARCH_ID";
+  payload: string;
+}
+
+export interface FetchSearchId {
+  type: "FETCH_SEARCH_ID";
+}
+
+export interface AddLengthAction {
+  type: "ADD_LENGTH";
+}
+
 export type ticketsAction =
   | FetchSuccessAction
   | FetchErrorAction
-  | FetchingAction;
+  | FetchingAction
+  | FilterByStopsAction
+  | SortAction
+  | GetSearchId
+  | FetchSearchId
+  | AddLengthAction;
