@@ -8,7 +8,7 @@ export interface stopsFilterState {
 }
 
 const initialState: stopsFilterState = {
-  stopsCount: [],
+  stopsCount: [0, 1, 2, 3],
 };
 
 export const stopsFilterReducer = (

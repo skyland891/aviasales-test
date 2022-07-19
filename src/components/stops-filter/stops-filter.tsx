@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import StopsFilterItem from "../stops-filter-item";
 import {
@@ -23,7 +23,7 @@ type StopsFilterProps = PropsFromRedux & {
   stopsFilter: IStopsFilterItem[];
 };
 
-function StopsFilter(props: StopsFilterProps) {
+const StopsFilter = memo((props: StopsFilterProps) => {
   const { stopsFilter, stopsCount, addStopFilter, deleteStopFilter } = props;
   const mapLetterToNumber: any = {
     В: [0, 1, 2, 3],
@@ -61,6 +61,8 @@ function StopsFilter(props: StopsFilterProps) {
       </ul>
     </div>
   );
-}
+});
+
+StopsFilter.displayName = "StopsFilter";
 
 export default connector(StopsFilter);

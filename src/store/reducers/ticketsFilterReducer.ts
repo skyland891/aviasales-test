@@ -5,7 +5,7 @@ export interface ticketsFilterState {
 }
 
 const initialState: ticketsFilterState = {
-  targetId: null,
+  targetId: 3,
 };
 
 const TARGET_FILTER = "TARGET_FILTER";

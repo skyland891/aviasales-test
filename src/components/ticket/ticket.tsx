@@ -52,11 +52,12 @@ function Ticket({ price, segments, carrier }: ITicket) {
         <img src={`//pics.avs.io/99/36/${carrier}.png`} alt={`${carrier}`} />
       </header>
       <ul>
-        {segments.map((segmentItem) => (
-          <li className={style.variant} key={segmentItem.stops.length}>
-            <SegmentItem item={segmentItem} />
-          </li>
-        ))}
+        <li className={style.variant}>
+          <SegmentItem item={segments[0]} />
+        </li>
+        <li className={style.variant}>
+          <SegmentItem item={segments[1]} />
+        </li>
       </ul>
     </div>
   );
